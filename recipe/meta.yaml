@@ -1,5 +1,5 @@
 {% set name = "twisted-iocpsupport" %}
-{% set version = "1.0.1" %}
+{% set version = "1.0.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,21 +7,23 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/twisted-iocpsupport-{{ version }}.tar.gz
-  sha256: bdda01692988f29d43d832a4b1f402199d0c7d80083ad65059a0892a3670fc9a
+  sha256: 72068b206ee809c9c596b57b5287259ea41ddb4774d86725b19f35bf56aa32a9
 
 build:
   number: 0
   skip: True  # [not win]
-  skip: True  # [py<35]
+  skip: True  # [py<36]
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   build:
     - {{ compiler('c') }}
   host:
-    - cython
-    - pip
     - python
+    - cython >=0.29.24
+    - pip
+    - setuptools >=35.0.2
+    - wheel >=0.29.0
   run:
     - python
 
@@ -37,7 +39,9 @@ about:
   home: https://github.com/twisted/twisted-iocpsupport
   summary: An extension for use in the twisted I/O Completion Ports reactor.
   license: MIT
+  license_family: MIT
   license_file: LICENSE
+  dev_url: https://github.com/twisted/twisted-iocpsupport
 
 extra:
   recipe-maintainers:
